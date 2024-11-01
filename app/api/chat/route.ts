@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const response = await fireworks.chat.completions.create({
     model: "accounts/fireworks/models/llama-v3p2-11b-vision-instruct",
     stream: true,
-    max_tokens: 1000,
+    max_tokens: 999999,
     messages,
   });
   const stream = OpenAIStream(response);
