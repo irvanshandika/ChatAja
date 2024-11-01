@@ -1,57 +1,39 @@
 "use client";
-
 import { useChat } from "ai/react";
-import { useRef, useState } from "react";
-import Image from "next/image";
+import MetaIcon from "./icons/MetaIcon";
+import UserIcon from "./icons/UserIcon";
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
 
-  const [files, setFiles] = useState<FileList | undefined>(undefined);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      {messages.map((m) => (
-        <div key={m.id} className="whitespace-pre-wrap">
-          {m.role === "user" ? "User: " : "AI: "}
-          {m.content}
-          <div>
-            {m?.experimental_attachments
-              ?.filter((attachment) => attachment?.contentType?.startsWith("image/"))
-              .map((attachment, index) => (
-                <Image key={`${m.id}-${index}`} src={attachment.url} width={500} height={500} alt={attachment.name ?? `attachment-${index}`} />
-              ))}
-          </div>
+    <div className="p-4">
+      <header className="text-center">
+        <h1 className="text-xl">Llama AI</h1>
+      </header>
+      <div className="flex flex-col justify-between w-full max-w-md mx-auto stretch">
+        <div className="flex-grow overflow-y-auto">
+          {messages.map((m) => (
+            <div key={m.id} className="whitespace-pre-wrap flex gap-x-2">
+              {m.role === "user" ? (
+                <>
+                  <UserIcon className="w-6 h-6 inline-block" />
+                  <span>:</span>
+                </>
+              ) : (
+                <>
+                  <MetaIcon className="w-6 h-6 inline-block" />
+                  <span>:</span>
+                </>
+              )}
+              {m.content.replace(/[*_`~]/g, "")}
+            </div>
+          ))}
         </div>
-      ))}
-
-      <form
-        className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 bg-white rounded shadow-xl space-y-2"
-        onSubmit={(event) => {
-          handleSubmit(event, {
-            experimental_attachments: files,
-          });
-
-          setFiles(undefined);
-
-          if (fileInputRef.current) {
-            fileInputRef.current.value = "";
-          }
-        }}>
-        <input
-          type="file"
-          className=""
-          onChange={(event) => {
-            if (event.target.files) {
-              setFiles(event.target.files);
-            }
-          }}
-          multiple
-          ref={fileInputRef}
-        />
-        <input className="w-full p-2" value={input} placeholder="Say something..." onChange={handleInputChange} />
-      </form>
+        <form onSubmit={handleSubmit}>
+          <input className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl" value={input} placeholder="Say something..." onChange={handleInputChange} />
+        </form>
+      </div>
     </div>
   );
 }
