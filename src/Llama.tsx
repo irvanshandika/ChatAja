@@ -1,10 +1,12 @@
 "use client";
 import { useChat } from "ai/react";
-import MetaIcon from "./icons/MetaIcon";
-import UserIcon from "./icons/UserIcon";
+import MetaIcon from "./components/icons/MetaIcon";
+import UserIcon from "./components/icons/UserIcon";
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    api: "/api/chat/llma",
+  });
 
   return (
     <div className="p-4">
@@ -31,12 +33,7 @@ export default function Chat() {
           ))}
         </div>
         <form onSubmit={handleSubmit} className="mt-4">
-          <input
-            className="w-full p-2 border border-gray-300 rounded shadow-xl"
-            value={input}
-            placeholder="Say something..."
-            onChange={handleInputChange}
-          />
+          <input className="w-full p-2 border border-gray-300 rounded shadow-xl" value={input} placeholder="Say something..." onChange={handleInputChange} />
         </form>
       </div>
     </div>

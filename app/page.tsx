@@ -1,10 +1,10 @@
 import React from "react";
-import Chat from "@/src/components/chat";
+import Hero from "@/src/sections/Hero";
 
 function Home() {
   return (
     <>
-      <Chat />
+      <Hero />
     </>
   );
 }
