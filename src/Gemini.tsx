@@ -1,6 +1,6 @@
 "use client";
-
 import { useChat } from "ai/react";
+import MarkdownIt from "markdown-it";
 
 export default function Chat() {
   const { messages, setMessages, input, handleInputChange, handleSubmit, error, reload } = useChat({
@@ -11,6 +11,8 @@ export default function Chat() {
   const handleDelete = (id: string) => {
     setMessages(messages.filter((message) => message.id !== id));
   };
+
+  const md = new MarkdownIt();
 
   return (
     <div className="flex flex-col h-screen bg-gray-100">
@@ -24,7 +26,7 @@ export default function Chat() {
                   &times;
                 </button>
               </div>
-              <p className="mt-2 text-sm">{message.content}</p>
+              <p className="mt-2 text-sm" dangerouslySetInnerHTML={{ __html: md.render(message.content) }} />
             </div>
           </div>
         ))}
