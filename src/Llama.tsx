@@ -1,41 +1,50 @@
 "use client";
+
 import { useChat } from "ai/react";
-import MetaIcon from "./components/icons/MetaIcon";
-import UserIcon from "./components/icons/UserIcon";
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: "/api/chat/llma",
+  const { messages, setMessages, input, handleInputChange, handleSubmit, error, reload } = useChat({
+    keepLastMessageOnError: true,
+    api: "/api/chat/llama",
   });
 
+  const handleDelete = (id: string) => {
+    setMessages(messages.filter((message) => message.id !== id));
+  };
+
   return (
-    <div className="p-4">
-      <header className="text-center">
-        <h1 className="text-xl">Llama AI</h1>
-      </header>
-      <div className="flex flex-col justify-between w-full max-w-md mx-auto">
-        <div className="flex-grow overflow-y-auto">
-          {messages.map((m) => (
-            <div key={m.id} className="whitespace-pre-wrap flex gap-x-2">
-              {m.role === "user" ? (
-                <>
-                  <UserIcon className="w-6 h-6 inline-block flex-shrink-0" />
-                  <span>:</span>
-                </>
-              ) : (
-                <>
-                  <MetaIcon className="w-6 h-6 inline-block flex-shrink-0" />
-                  <span>:</span>
-                </>
-              )}
-              {m.content.replace(/[*_`~]/g, "")}
+    <div className="flex flex-col h-screen bg-gray-100">
+      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        {messages.map((message) => (
+          <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+            <div className={`max-w-md px-4 py-3 rounded-lg shadow ${message.role === "user" ? "bg-blue-500 text-white" : "bg-gray-200"}`}>
+              <div className="flex justify-between items-center">
+                <span className="font-bold">{message.role === "user" ? "Anda" : "AI"}</span>
+                <button onClick={() => handleDelete(message.id)} className="text-red-500 hover:text-red-700">
+                  &times;
+                </button>
+              </div>
+              <p className="mt-2 text-sm">{message.content}</p>
             </div>
-          ))}
-        </div>
-        <form onSubmit={handleSubmit} className="mt-4">
-          <input className="w-full p-2 border border-gray-300 rounded shadow-xl" value={input} placeholder="Say something..." onChange={handleInputChange} />
-        </form>
+          </div>
+        ))}
+
+        {error && (
+          <div className="text-red-500">
+            <div>Terjadi kesalahan.</div>
+            <button type="button" onClick={() => reload()} className="mt-2 px-4 py-2 bg-red-500 text-white rounded">
+              Coba Lagi
+            </button>
+          </div>
+        )}
       </div>
+
+      <form onSubmit={handleSubmit} className="flex p-4 bg-white border-t border-gray-200">
+        <input value={input} onChange={handleInputChange} disabled={error != null} className="flex-1 px-4 py-2 border border-gray-300 rounded-l focus:outline-none" placeholder="Ketik pesan Anda..." />
+        <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-r hover:bg-blue-700">
+          Kirim
+        </button>
+      </form>
     </div>
   );
 }
