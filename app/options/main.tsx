@@ -2,6 +2,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import GroqIcon from "@/src/components/icons/groq.svg";
 
 const OptionsPage: React.FC = () => {
   const router = useRouter();
@@ -16,6 +17,10 @@ const OptionsPage: React.FC = () => {
         <button onClick={() => router.push("/gemini")} className="flex flex-col items-center justify-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
           <Image src="https://api.iconify.design/logos:google-gemini.svg" width={200} height={200} alt="Gemini AI" />
           <span className="mt-2 text-lg font-semibold">Gemini AI</span>
+        </button>
+        <button onClick={() => router.push("/groq")} className="flex flex-col items-center justify-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+          <Image src={GroqIcon} width={100} height={100} alt="Gemini AI" />
+          <span className="mt-2 text-lg font-semibold">Groq AI</span>
         </button>
       </div>
     </div>
