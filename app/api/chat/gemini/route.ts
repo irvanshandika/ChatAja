@@ -3,8 +3,6 @@ import { GoogleGenerativeAIStream, Message, StreamingTextResponse } from "ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || "");
 
-// convert messages from the AI SDK Format to the format
-// that is expected by the Google GenAI SDK
 const buildGoogleGenAIPrompt = (messages: Message[]) => ({
   contents: messages
     .filter((message) => message.role === "user" || message.role === "assistant")
@@ -15,14 +13,12 @@ const buildGoogleGenAIPrompt = (messages: Message[]) => ({
 });
 
 export async function POST(req: Request) {
-  // Extract the `prompt` from the body of the request
   const { messages } = await req.json();
 
-  const geminiStream = await genAI.getGenerativeModel({ model: "gemini-pro" }).generateContentStream(buildGoogleGenAIPrompt(messages));
+  const geminiStream = await genAI.getGenerativeModel({ model: "gemini-exp-1114" })
+  .generateContentStream(buildGoogleGenAIPrompt(messages));
 
-  // Convert the response into a friendly text-stream
   const stream = GoogleGenerativeAIStream(geminiStream);
 
-  // Respond with the stream
   return new StreamingTextResponse(stream);
 }
