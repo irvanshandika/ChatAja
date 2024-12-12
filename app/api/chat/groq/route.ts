@@ -9,9 +9,9 @@ const groq = new OpenAI({
 export async function POST(req: Request) {
   const { messages } = await req.json();
   const response = await groq.chat.completions.create({
-    model: "llama-3.2-90b-vision-preview",
+    model: "llama3-groq-70b-8192-tool-use-preview",
     stream: true,
-    max_tokens: 1024,
+    max_tokens: 8192,
     temperature: 1,
     messages,
   });
