@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   const response = await groq.chat.completions.create({
     model: "llama-3.3-70b-versatile",
     stream: true,
-    max_tokens: 8192,
+    max_tokens: 65536,
     temperature: 1,
     messages,
   });

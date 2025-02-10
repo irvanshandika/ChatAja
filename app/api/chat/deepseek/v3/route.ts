@@ -12,8 +12,8 @@ export async function POST(req: Request) {
   const response = await fireworks.chat.completions.create({
     model: "accounts/fireworks/models/deepseek-v3",
     stream: true,
-    temperature: 0.7,
-    max_tokens: 999999,
+    temperature: 1,
+    max_tokens: 65536,
     messages,
   });
   const stream = OpenAIStream(response as any);
