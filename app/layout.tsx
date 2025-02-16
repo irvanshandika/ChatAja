@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { ThemeProvider } from "@/src/components/theme-provider";
-import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
   title: "Nikmati Chat AI",
@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased bg-white dark:bg-gray-900">
+      <body className="antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>

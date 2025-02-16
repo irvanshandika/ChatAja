@@ -3,7 +3,7 @@ import GeminiChat from "./main";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Gemini",
+  title: "Chat",
 };
 
 function Gemini() {
