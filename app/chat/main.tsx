@@ -41,6 +41,15 @@ export default function Chat() {
 
   const md = new MarkdownIt("commonmark", { breaks: true });
 
+  const renderContent = (content: string) => {
+    const rendered = md.render(content);
+    return rendered.replace(/<think>([\s\S]*?)<\/think>/g, (_match, inner) => {
+      return `<div style="background-color: #333; color: #fff; padding: 8px; border-radius: 4px; margin: 0.5rem 0;">
+                ${inner.trim()}
+              </div>`;
+    });
+  };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setFiles(event.target.files);
@@ -104,7 +113,7 @@ export default function Chat() {
 
               {/* Pilihan Llama */}
               <DropdownMenuItem onSelect={() => handleModelChange("Llama")} className="flex justify-start items-start cursor-pointer py-3 px-3">
-                <Image src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/66f41a324f1d713df2cbfbf4_deepseek-logo.webp" alt="Deepseek R1" className="h-5 w-5 rounded-full" width={0} height={0} />
+                <Image src="https://api.iconify.design/logos:meta-icon.svg" alt="Llama" className="h-5 w-5 rounded-full" width={0} height={0} />
                 <div className="flex items-center gap-2">Llama</div>
               </DropdownMenuItem>
 
@@ -121,7 +130,7 @@ export default function Chat() {
           <div key={m.id} className={`mb-4 ${m.role === "user" ? "items-end" : "items-start"} flex flex-col`}>
             <div className={`font-semibold mb-1 ${m.role === "user" ? "text-right" : "text-left"}`}>{m.role === "user" ? "User" : "AI"}</div>
             <div className={`p-2 rounded-lg max-w-[80%] ${m.role === "user" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}`}>
-              <div dangerouslySetInnerHTML={{ __html: md.render(m.content) }} className="whitespace-pre-wrap break-words" />
+              <div dangerouslySetInnerHTML={{ __html: renderContent(m.content) }} className="whitespace-pre-wrap break-words" />
               {m?.experimental_attachments
                 ?.filter((attachment) => attachment?.contentType?.startsWith("image/") || attachment?.contentType?.startsWith("application/pdf"))
                 .map((attachment, index) =>
