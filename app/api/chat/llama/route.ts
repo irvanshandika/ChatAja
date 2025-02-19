@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const result = streamText({
-    model: deepseek("accounts/fireworks/models/llama-v3p2-11b-vision-instruct"),
+    model: deepseek("accounts/fireworks/models/llama-v3p2-90b-vision-instruct"),
     messages,
   });
 
