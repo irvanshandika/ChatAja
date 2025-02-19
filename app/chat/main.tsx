@@ -4,7 +4,6 @@ import { useChat } from "@ai-sdk/react";
 import { useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
 import MarkdownIt from "markdown-it";
-
 import { Button } from "@/src/components/ui/button";
 import { Textarea } from "@/src/components/ui/textarea";
 import { ScrollArea } from "@/src/components/ui/scroll-area";
@@ -129,7 +128,7 @@ export default function Chat() {
         {messages.map((m) => (
           <div key={m.id} className={`mb-4 ${m.role === "user" ? "items-end" : "items-start"} flex flex-col`}>
             <div className={`font-semibold mb-1 ${m.role === "user" ? "text-right" : "text-left"}`}>{m.role === "user" ? "User" : "AI"}</div>
-            <div className={`p-2 rounded-lg max-w-[80%] ${m.role === "user" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}`}>
+            <div className={`p-2 rounded-lg max-w-[80%] ${m.role === "user" ? "bg-blue-500" : "bg-gray-500"}`}>
               <div dangerouslySetInnerHTML={{ __html: renderContent(m.content) }} className="whitespace-pre-wrap break-words" />
               {m?.experimental_attachments
                 ?.filter((attachment) => attachment?.contentType?.startsWith("image/") || attachment?.contentType?.startsWith("application/pdf"))
