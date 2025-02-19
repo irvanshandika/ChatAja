@@ -12,16 +12,13 @@ import { Paperclip, Send, X, ChevronDown, Info } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/src/components/ui/dropdown-menu";
 
 export default function Chat() {
-  // State untuk model yang dipilih dan endpoint API
   const [selectedModel, setSelectedModel] = useState("Gemini 2.0 Pro");
   const [modelApi, setModelApi] = useState("/api/chat/gemini/2.0-pro");
 
-  // Hook bawaan AI SDK
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: modelApi,
   });
 
-  // Mengatur model yang dipilih & endpoint API
   const handleModelChange = (model: string) => {
     setSelectedModel(model);
 
@@ -33,25 +30,23 @@ export default function Chat() {
       setModelApi("/api/chat/deepseek/v3");
     } else if (model === "Deepseek R1") {
       setModelApi("/api/chat/deepseek/r1");
+    } else if (model === "Llama") {
+      setModelApi("/api/chat/llama");
     }
   };
 
-  // State & ref untuk file
   const [files, setFiles] = useState<FileList | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Markdown instance
   const md = new MarkdownIt("commonmark", { breaks: true });
 
-  // Handler perubahan file
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setFiles(event.target.files);
     }
   };
 
-  // Menghapus file yang diunggah
   const removeFile = () => {
     setFiles(null);
     if (fileInputRef.current) {
@@ -59,7 +54,6 @@ export default function Chat() {
     }
   };
 
-  // Menangani submit saat tekan Enter (tanpa shift)
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -69,8 +63,7 @@ export default function Chat() {
 
   return (
     <div className="flex flex-col h-screen bg-background text-foreground">
-      {/* Header / Dropdown Model */}
-      <div className="flex justify-start items-start">
+      <header className="flex justify-start items-start">
         <div className="p-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -109,12 +102,18 @@ export default function Chat() {
                 <div className="flex items-center gap-2">Deepseek R1</div>
               </DropdownMenuItem>
 
+              {/* Pilihan Llama */}
+              <DropdownMenuItem onSelect={() => handleModelChange("Llama")} className="flex justify-start items-start cursor-pointer py-3 px-3">
+                <Image src="https://cdn.prod.website-files.com/650c3b59079d92475f37b68f/66f41a324f1d713df2cbfbf4_deepseek-logo.webp" alt="Deepseek R1" className="h-5 w-5 rounded-full" width={0} height={0} />
+                <div className="flex items-center gap-2">Llama</div>
+              </DropdownMenuItem>
+
               <DropdownMenuSeparator />
               <DropdownMenuItem className="py-3">More models</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      </div>
+      </header>
 
       {/* Area Chat */}
       <ScrollArea className="flex-grow px-4">
