@@ -41,7 +41,10 @@ export default function Chat() {
   const md = new MarkdownIt("commonmark", { breaks: true });
 
   const renderContent = (content: string) => {
-    const rendered = md.render(content);
+    // Hapus lebih dari 2 enter dan spasi berlebihan
+    const cleanedContent = content.replace(/\n{3,}/g, "\n\n").trim();
+    const rendered = md.render(cleanedContent);
+
     return rendered.replace(/<think>([\s\S]*?)<\/think>/g, (_match, inner) => {
       return `<div style="background-color: #333; color: #fff; padding: 8px; border-radius: 4px; margin: 0.5rem 0;">
                 ${inner.trim()}
