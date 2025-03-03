@@ -127,22 +127,17 @@ export default function Chat() {
       </header>
 
       {/* Area Chat */}
-      <ScrollArea className="flex-grow px-4">
+      <ScrollArea className="flex-grow px-4 py-2">
         {messages.map((m) => (
-          <div key={m.id} className={`mb-4 ${m.role === "user" ? "items-end" : "items-start"} flex flex-col`}>
-            <div className={`font-semibold mb-1 ${m.role === "user" ? "text-right" : "text-left"}`}>{m.role === "user" ? "User" : "AI"}</div>
-            <div className={`p-2 rounded-lg max-w-[80%] ${m.role === "user" ? "bg-blue-500" : "bg-gray-500"}`}>
-              <div dangerouslySetInnerHTML={{ __html: renderContent(m.content) }} className="whitespace-pre-wrap break-words" />
-              {m?.experimental_attachments
-                ?.filter((attachment) => attachment?.contentType?.startsWith("image/") || attachment?.contentType?.startsWith("application/pdf"))
-                .map((attachment, index) =>
-                  attachment.contentType?.startsWith("image/") ? (
-                    <Image key={`${m.id}-${index}`} src={attachment.url || "/placeholder.svg"} width={200} height={200} alt={attachment.name ?? `attachment-${index}`} className="mt-2 rounded-md" />
-                  ) : attachment.contentType?.startsWith("application/pdf") ? (
-                    <iframe key={`${m.id}-${index}`} src={attachment.url} width="200" height="200" title={attachment.name ?? `attachment-${index}`} className="mt-2 rounded-md" />
-                  ) : null
-                )}
+          <div key={m.id} className={`mb-2 flex flex-col ${m.role === "user" ? "items-end" : "items-start"}`}>
+            <div className={`font-semibold text-sm ${m.role === "user" ? "text-right" : "text-left"}`}>
+              {m.role === "user" ? "You" : "ChatAja AI"}
             </div>
+            <div
+              className={`p-3 rounded-lg max-w-[80%] leading-relaxed whitespace-pre-wrap break-words
+                ${m.role === "user" ? "bg-blue-500 text-white" : "bg-gray-100 text-black"}`}
+              dangerouslySetInnerHTML={{ __html: renderContent(m.content) }}
+            />
           </div>
         ))}
       </ScrollArea>
