@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
   content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}", 
-    "./app/**/*.{js,ts,jsx,tsx,mdx}"
+	"./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      inter: ["Inter", "sans-serif"],
+    },
     extend: {
       colors: {
         background: "hsl(var(--background))",
@@ -57,7 +61,5 @@ export default {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"), 
-  ],
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;

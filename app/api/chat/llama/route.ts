@@ -1,5 +1,7 @@
-import { streamText } from "ai";
+import { streamText, UIMessage } from "ai";
 import { createFireworks } from "@ai-sdk/fireworks";
+
+export const runtime = 'edge';
 
 const llama = createFireworks({
   apiKey: process.env.NEXT_PUBLIC_FIREWORKS_API_KEY,
@@ -7,7 +9,7 @@ const llama = createFireworks({
 });
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  const { messages }: { messages: UIMessage[] } = await req.json();
 
   const result = streamText({
     model: llama("accounts/fireworks/models/llama-v3p2-90b-vision-instruct"),

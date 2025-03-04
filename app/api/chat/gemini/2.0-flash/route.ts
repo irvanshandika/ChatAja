@@ -1,5 +1,7 @@
-import { streamText } from "ai";
+import { streamText, UIMessage } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+
+export const runtime = 'edge';
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
@@ -7,7 +9,7 @@ const google = createGoogleGenerativeAI({
 });
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  const { messages }: { messages: UIMessage[] } = await req.json();
 
   const result = streamText({
     model: google("gemini-2.0-flash-exp"),
