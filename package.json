@@ -50,5 +50,8 @@
     "typescript": "^5.8.2",
     "vercel": "^41.3.1",
     "wrangler": "^3.112.0"
+  },
+  "engines": {
+    "node": ">=20" 
   }
 }
