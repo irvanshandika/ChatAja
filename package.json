@@ -14,22 +14,22 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts"
   },
   "dependencies": {
-    "@ai-sdk/fireworks": "^0.1.12",
-    "@ai-sdk/google": "^1.1.19",
-    "@ai-sdk/react": "^1.1.20",
-    "@next/third-parties": "^15.2.1",
+    "@ai-sdk/fireworks": "^0.1.15",
+    "@ai-sdk/google": "^1.1.21",
+    "@ai-sdk/react": "^1.1.22",
+    "@next/third-parties": "^15.2.2",
     "@radix-ui/react-dropdown-menu": "^2.1.6",
     "@radix-ui/react-scroll-area": "^1.2.3",
     "@radix-ui/react-select": "^2.1.6",
     "@radix-ui/react-slot": "^1.1.2",
     "@types/markdown-it": "^14.1.2",
-    "ai": "^4.1.51",
+    "ai": "^4.1.56",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.477.0",
+    "lucide-react": "^0.479.0",
     "markdown-it": "^14.1.0",
-    "next": "15.2.1",
-    "next-themes": "^0.4.4",
+    "next": "15.2.2",
+    "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.0.2",
@@ -37,21 +37,21 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.8",
-    "@cloudflare/workers-types": "^4.20250303.0",
+    "@cloudflare/next-on-pages": "^1.13.10",
+    "@cloudflare/workers-types": "^4.20250311.0",
     "@eslint/eslintrc": "^3.3.0",
-    "@types/node": "^20.17.23",
+    "@types/node": "^20.17.24",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "eslint": "^9.21.0",
-    "eslint-config-next": "15.2.1",
+    "eslint": "^9.22.0",
+    "eslint-config-next": "15.2.2",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.2",
-    "vercel": "^41.3.1",
-    "wrangler": "^3.112.0"
+    "vercel": "^41.4.0",
+    "wrangler": "^3.114.1"
   },
   "engines": {
-    "node": ">=20" 
+    "node": ">=20"
   }
 }
