@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();
 
   const result = streamText({
-    model: google("gemini-2.0-pro-exp-02-05"),
+    model: google("gemini-2.0-pro-exp"),
     messages,
     temperature: 1,
     maxTokens: 8192,
